@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thabik Tutoring | Indiana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0d1b2e;
+      --navy-mid: #162540;
+      --navy-light: #1e3258;
+      --gold: #c9a84c;
+      --gold-light: #e8c96e;
+      --gold-dark: #9a7a30;
+      --gold-shine: #f5e09a;
+      --white: #f8f4ec;
+      --text-muted: #8fa3be;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--navy);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── STAR FIELD ── */
+    .starfield {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(1px 1px at 10% 20%, rgba(200,168,76,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 10%, rgba(200,168,76,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 50%, rgba(255,255,255,.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 85%, rgba(200,168,76,.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 90%, rgba(255,255,255,.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 30%, rgba(200,168,76,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 55%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 40%, rgba(200,168,76,.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 80%, rgba(255,255,255,.2) 0%, transparent 100%);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(13,27,46,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,.2);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 1rem; text-decoration: none;
+    }
+    .nav-logo img { width: 52px; height: 52px; object-fit: contain; }
+    .nav-logo span {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .12em;
+    }
+
+    .nav-links {
+      display: flex; gap: 2.8rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Lato', sans-serif;
+      font-size: .85rem; font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: none; letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--navy) !important;
+      padding: .55rem 1.5rem;
+      border-radius: 2px;
+      font-weight: 900 !important;
+      transition: opacity .2s !important;
+    }
+    .nav-cta:hover { opacity: .85; color: var(--navy) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.07) 0%, transparent 70%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(201,168,76,.4);
+      color: var(--gold);
+      font-family: 'Lato', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      padding: .4rem 1.2rem; border-radius: 2px;
+      margin-bottom: 2rem;
+      animation: fadeUp .8s ease both;
+    }
+
+    .hero-logo {
+      width: 160px; height: 160px;
+      object-fit: contain;
+      margin-bottom: 2.5rem;
+      filter: drop-shadow(0 0 30px rgba(201,168,76,.35));
+      animation: fadeUp .9s .1s ease both, float 6s ease-in-out infinite 1s;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      background: linear-gradient(160deg, var(--gold-shine) 0%, var(--gold) 40%, var(--gold-dark) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 1s .2s ease both;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-muted); font-weight: 300;
+      max-width: 560px; line-height: 1.7;
+      margin: 0 auto 2.8rem;
+      animation: fadeUp 1s .35s ease both;
+    }
+
+    .hero-buttons {
+      display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 1s .5s ease both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--navy);
+      font-family: 'Cinzel', serif; font-weight: 700;
+      font-size: .9rem; letter-spacing: .08em;
+      padding: 1rem 2.4rem; border-radius: 2px;
+      text-decoration: none; display: inline-block;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 24px rgba(201,168,76,.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 36px rgba(201,168,76,.45);
+    }
+
+    .btn-outline {
+      border: 1.5px solid rgba(201,168,76,.5);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif; font-weight: 600;
+      font-size: .9rem; letter-spacing: .08em;
+      padding: 1rem 2.4rem; border-radius: 2px;
+      text-decoration: none; display: inline-block;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-outline:hover {
+      background: rgba(201,168,76,.08);
+      border-color: var(--gold);
+    }
+
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      color: rgba(201,168,76,.4); font-size: .7rem;
+      letter-spacing: .15em; text-transform: uppercase;
+      animation: fadeUp 1.2s .8s ease both;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(201,168,76,.4), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: .4; transform: scaleY(1); }
+      50%      { opacity: 1;  transform: scaleY(1.2); }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      position: relative; z-index: 1;
+      width: 100%; height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: .3;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      position: relative; z-index: 1;
+      padding: 7rem 2rem;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; line-height: 1.15;
+      color: var(--white); margin-bottom: 1.2rem;
+    }
+    .section-title span {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-body {
+      color: var(--text-muted); font-weight: 300;
+      font-size: 1.05rem; line-height: 1.8; max-width: 580px;
+    }
+
+    /* ── STATS BAR ── */
+    .stats {
+      background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+      border-top: 1px solid rgba(201,168,76,.15);
+      border-bottom: 1px solid rgba(201,168,76,.15);
+      padding: 3.5rem 2rem;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+      gap: 2rem; text-align: center;
+    }
+    .stat-item {}
+    .stat-number {
+      font-family: 'Cinzel', serif; font-size: 2.8rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1;
+    }
+    .stat-label {
+      font-size: .78rem; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--text-muted); margin-top: .5rem;
+    }
+
+    /* ── SUBJECTS ── */
+    .subjects-bg { background: var(--navy); }
+
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+
+    .subject-card {
+      background: linear-gradient(145deg, var(--navy-mid), var(--navy-light));
+      border: 1px solid rgba(201,168,76,.15);
+      border-radius: 4px;
+      padding: 2rem 1.8rem;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .subject-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0; transition: opacity .25s;
+    }
+    .subject-card:hover {
+      border-color: rgba(201,168,76,.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    .subject-card:hover::before { opacity: 1; }
+
+    .subject-icon {
+      font-size: 2rem; margin-bottom: 1rem; display: block;
+    }
+    .subject-name {
+      font-family: 'Cinzel', serif; font-size: 1rem;
+      font-weight: 700; color: var(--white);
+      margin-bottom: .5rem; letter-spacing: .05em;
+    }
+    .subject-desc {
+      font-size: .88rem; color: var(--text-muted);
+      line-height: 1.6; font-weight: 300;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-bg {
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem; margin-top: 3.5rem;
+    }
+    .step {
+      text-align: center; padding: 1.5rem;
+    }
+    .step-number {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-family: 'Cinzel', serif; font-weight: 900;
+      font-size: 1.1rem; color: var(--navy);
+    }
+    .step h3 {
+      font-family: 'Cinzel', serif; font-size: 1rem;
+      color: var(--white); margin-bottom: .5rem;
+    }
+    .step p { font-size: .9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-bg { background: var(--navy-mid); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .testimonial-card {
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,.12);
+      border-radius: 4px;
+      padding: 2rem;
+    }
+    .stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: .15em; }
+    .testimonial-text {
+      font-size: .95rem; color: var(--white);
+      line-height: 1.75; margin-bottom: 1.5rem;
+      font-weight: 300; font-style: italic;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .author-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif; font-weight: 700;
+      font-size: .9rem; color: var(--navy);
+      flex-shrink: 0;
+    }
+    .author-name {
+      font-size: .88rem; font-weight: 700; color: var(--white);
+    }
+    .author-role { font-size: .78rem; color: var(--text-muted); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy-mid), var(--navy));
+      text-align: center;
+      border-top: 1px solid rgba(201,168,76,.15);
+    }
+    .cta-inner {
+      max-width: 680px; margin: 0 auto;
+    }
+    .cta-section .section-title { margin-bottom: 1.2rem; }
+    .cta-section .section-body { margin: 0 auto 2.5rem; }
+    .cta-form {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .cta-input {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(201,168,76,.25);
+      color: var(--white); border-radius: 2px;
+      padding: .9rem 1.4rem; font-size: .95rem;
+      font-family: 'Lato', sans-serif;
+      min-width: 240px; flex: 1; max-width: 320px;
+      outline: none; transition: border-color .2s;
+    }
+    .cta-input::placeholder { color: var(--text-muted); }
+    .cta-input:focus { border-color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      background: #080f1a;
+      border-top: 1px solid rgba(201,168,76,.12);
+      padding: 3.5rem 2rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 3rem;
+    }
+    .footer-brand img { width: 64px; margin-bottom: 1rem; }
+    .footer-brand p {
+      font-size: .88rem; color: var(--text-muted);
+      line-height: 1.7; font-weight: 300; max-width: 240px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Cinzel', serif; font-size: .85rem;
+      color: var(--gold); letter-spacing: .12em;
+      text-transform: uppercase; margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .7rem; }
+    .footer-col ul a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: .88rem; font-weight: 300;
+      transition: color .2s;
+    }
+    .footer-col ul a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      max-width: 1100px; margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(201,168,76,.1);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: .78rem; color: var(--text-muted); }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .footer-inner { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="starfield"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="_Final_transparent_for_now__Good_Navy_Blue.png" alt="Thabik Tutoring Logo"/>
+    <span>Thabik Tutoring</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Indiana's Premier Tutoring Service</div>
+  <img class="hero-logo" src="_Final_transparent_for_now__Good_Navy_Blue.png" alt="Thabik Tutoring"/>
+  <h1>Unlock Your Full<br>Academic Potential</h1>
+  <p class="hero-sub">
+    Expert, personalized tutoring across all grade levels and subjects — designed to build confidence, mastery, and a lifelong love of learning.
+  </p>
+  <div class="hero-buttons">
+    <a href="#contact" class="btn-primary">Book a Session</a>
+    <a href="#subjects" class="btn-outline">Explore Subjects</a>
+  </div>
+  <div class="scroll-hint">Discover More</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Students Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Subjects Covered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">K–12</div>
+        <div class="stat-label">All Grade Levels</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SUBJECTS -->
+<section id="subjects" class="subjects-bg">
+  <div class="container">
+    <div class="section-label">What We Teach</div>
+    <h2 class="section-title">Expert Help Across<br><span>Every Subject</span></h2>
+    <p class="section-body">From foundational math to advanced sciences and test prep, our tutors bring clarity, patience, and expertise to every session.</p>
+    <div class="subjects-grid">
+      <div class="subject-card">
+        <span class="subject-icon">📐</span>
+        <div class="subject-name">Mathematics</div>
+        <div class="subject-desc">Pre-Algebra through Calculus, Statistics, and everything in between. We make numbers click.</div>
+      </div>
+      <div class="subject-card">
+        <span class="subject-icon">🔬</span>
+        <div class="subject-name">Sciences</div>
+        <div class="subject-desc">Biology, Chemistry, Physics, and Earth Science. Lab reports, concepts, and exam prep all covered.</div>
+      </div>
+      <div class="subject-card">
+        <span class="subject-icon">📖</span>
+        <div class="subject-name">English & Writing</div>
+        <div class="subject-desc">Grammar, essay composition, literary analysis, and reading comprehension for all levels.</div>
+      </div>
+      <div class="subject-card">
+        <span class="subject-icon">🌍</span>
+        <div class="subject-name">History & Social Studies</div>
+        <div class="subject-desc">American History, World History, Geography, and Civics made engaging and memorable.</div>
+      </div>
+      <div class="subject-card">
+        <span class="subject-icon">🗣️</span>
+        <div class="subject-name">Foreign Languages</div>
+        <div class="subject-desc">Spanish, French, and more. Conversational fluency and academic language mastery.</div>
+      </div>
+      <div class="subject-card">
+        <span class="subject-icon">🎯</span>
+        <div class="subject-name">Test Prep</div>
+        <div class="subject-desc">SAT, ACT, ISTEP, and AP exam preparation with proven strategies and practice materials.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="how-bg">
+  <div class="container">
+    <div class="section-label">The Process</div>
+    <h2 class="section-title">Simple Steps to<br><span>Academic Success</span></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Free Consultation</h3>
+        <p>Tell us about your goals, challenges, and schedule. We'll match you with the perfect tutor.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Personalized Plan</h3>
+        <p>Your tutor designs a custom learning roadmap tailored specifically to your needs.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Focused Sessions</h3>
+        <p>Meet in-person or virtually on your schedule. Every session is purposeful and productive.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Track Progress</h3>
+        <p>Regular check-ins and progress reports keep you informed and motivated throughout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="testimonials-bg">
+  <div class="container">
+    <div class="section-label">What Families Say</div>
+    <h2 class="section-title">Real Results,<br><span>Real Stories</span></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"My daughter went from a C- to an A in Algebra in just six weeks. The tutors at Thabik are genuinely gifted at explaining concepts in a way that sticks."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MJ</div>
+          <div>
+            <div class="author-name">Michelle J.</div>
+            <div class="author-role">Parent · Lafayette, IN</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"I raised my ACT score by 5 points after just a month of prep sessions. Couldn't have gotten into my first-choice college without Thabik Tutoring."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">DS</div>
+          <div>
+            <div class="author-name">David S.</div>
+            <div class="author-role">Student · Class of 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Incredibly professional, patient, and effective. My son actually looks forward to his tutoring sessions now — that alone tells you everything."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">TR</div>
+          <div>
+            <div class="author-name">Tanya R.</div>
+            <div class="author-role">Parent · West Lafayette, IN</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="container cta-inner">
+    <div class="section-label">Get Started Today</div>
+    <h2 class="section-title">Ready to Excel?<br><span>Let's Talk.</span></h2>
+    <p class="section-body">Your free consultation is one step away. Drop us your email and we'll reach out to find the perfect fit for your student.</p>
+    <div class="cta-form">
+      <input class="cta-input" type="text" placeholder="Your name"/>
+      <input class="cta-input" type="email" placeholder="Your email address"/>
+      <a href="mailto:info@thabiktutoring.com" class="btn-primary">Request Free Consult</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="_Final_transparent_for_now__Good_Navy_Blue.png" alt="Thabik Tutoring"/>
+      <p>Empowering Indiana students to reach their highest potential through expert, personalized tutoring.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Subjects</h4>
+      <ul>
+        <li><a href="#">Mathematics</a></li>
+        <li><a href="#">Sciences</a></li>
+        <li><a href="#">English & Writing</a></li>
+        <li><a href="#">Test Prep</a></li>
+        <li><a href="#">Foreign Languages</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Tutors</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Indiana, USA</a></li>
+        <li><a href="mailto:info@thabiktutoring.com">info@thabiktutoring.com</a></li>
+        <li><a href="tel:+1">Schedule a Call</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Thabik Tutoring. All rights reserved.</p>
+    <p>Built with pride in <a href="#">Indiana</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
