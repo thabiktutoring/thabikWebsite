@@ -698,6 +698,37 @@
         margin-top: 14px
       }
 
+    .grade-picker {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 18px 0 22px;
+      padding: 16px 18px;
+      border: 1px solid #c9a84c66;
+      border-radius: 14px;
+      background: linear-gradient(100deg, rgba(201, 168, 76, .1), rgba(20, 34, 58, .6));
+      color: var(--ivory)
+    }
+
+    .grade-picker label { font-weight: 600; letter-spacing: .01em }
+    .grade-picker small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px }
+    .grade-select-wrap { position: relative; flex: 0 0 min(100%, 320px) }
+    .grade-picker select {
+      border: 1px solid var(--gold);
+      border-radius: 10px;
+      background: var(--panel);
+      color: var(--ivory);
+      width: 100%;
+      appearance: none;
+      padding: 13px 42px 13px 15px;
+      font: inherit;
+      cursor: pointer
+    }
+    .grade-select-wrap::after { content: '⌄'; position: absolute; right: 15px; top: 50%; transform: translateY(-55%); color: var(--gold); font-size: 20px; pointer-events: none }
+    .package-label { color: var(--gold); font-size: 12px; letter-spacing: .12em; text-transform: uppercase }
+    @media (max-width: 640px) { .grade-picker { align-items: stretch; flex-direction: column; } .grade-select-wrap { flex-basis: auto; } }
+
       .team-grid {
         grid-template-columns: 1fr;
         gap: 25px
@@ -987,12 +1018,6 @@
       display: block;
     }
 
-    .carousel-media {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
-
     .carousel-media img,
     .carousel-media video {
       object-fit: contain;
@@ -1012,7 +1037,6 @@
       padding: 3.5rem 2.25rem 1.35rem;
       background: linear-gradient(transparent, rgba(12, 18, 32, .94));
       pointer-events: none;
-      z-index: 2;
     }
 
     .carousel-caption span {
@@ -1225,27 +1249,36 @@
           <p class="section-aside">Online tutoring is available at a flat $28 per hour. In-person weekly packages are
             priced by weekly commitment.</p>
         </div>
+        <div class="grade-picker">
+          <div><label for="grade-level">What grade is your student in?</label><small data-package-label>Category 1 packages selected</small></div>
+          <div class="grade-select-wrap"><select id="grade-level" aria-describedby="pricing-note">
+            <option value="kindergarten">Kindergarten or younger</option>
+            <option value="elementary" selected>Elementary School</option>
+            <option value="middle">Middle School</option>
+            <option value="high">High School</option>
+          </select></div>
+        </div>
         <div class="pricing-grid">
           <article class="price-card">
             <div class="role">Basic</div>
             <h3>1 hour / week</h3>
-            <strong>$35 <small>an hour</small>
+            <strong data-price="basic">$35 <small>an hour</small>
             </strong>
-            <p>$35 / week</p>
+            <p data-weekly="basic">$35 / week</p>
           </article>
           <article class="price-card">
             <div class="role">Standard</div>
             <h3>2 hours / week</h3>
-            <strong>$32 <small>an hour</small>
+            <strong data-price="standard">$32 <small>an hour</small>
             </strong>
-            <p>$64 / week</p>
+            <p data-weekly="standard">$64 / week</p>
           </article>
           <article class="price-card featured">
             <div class="role">Gold</div>
             <h3>3+ hours / week</h3>
-            <strong>$30 <small>an hour</small>
+            <strong data-price="gold">$30 <small>an hour</small>
             </strong>
-            <p>Starting at $90 / week</p>
+            <p data-weekly="gold">Starting at $90 / week</p>
           </article>
           <article class="price-card online">
             <div class="role">Online</div>
@@ -1308,7 +1341,7 @@
       { src: './media/hniang.jpeg', type: 'image', title: 'Support that feels personal', caption: 'Focused support, shared with care.' },
       { src: './media/crossy-1.jpeg', type: 'image', title: 'A team behind every student', caption: 'Learning is better when it is shared.' },
       { src: './media/blessing-2.jpeg', type: 'image', title: 'Progress worth celebrating', caption: 'Showing up, trying again, and moving forward.' },
-      { src: './media/blessing-video.mp4', type: 'video', title: 'A tutoring moment', caption: 'A glimpse into a Thabik tutoring moment.' },      
+      { src: './media/blessing-video.mp4', type: 'video', title: 'A tutoring moment', caption: 'A glimpse into a Thabik tutoring moment.' },
       { src: './media/miriam.jpeg', type: 'image', title: 'Community learning', caption: 'Students and tutors growing together.' },
       { src: './media/ruth-and-eddie.jpeg', type: 'image', title: 'Learning beyond the desk', caption: 'Connection is part of the Thabik experience.' },
       { src: './media/titus.jpeg', type: 'image', title: 'Curiosity at work', caption: 'Making space for questions and confidence.' },
@@ -1352,6 +1385,35 @@
       renderCarousel(0);
     }
   </script>
+<script>
+const gradePricing = {
+  category1: { basic: 35, standard: 32, gold: 30 },
+  category2: { basic: 40, standard: 37, gold: 35 }
+};
+const gradeToCategory = {
+  kindergarten: 'category2',
+  elementary: 'category1',
+  middle: 'category1',
+  high: 'category2'
+};
+const gradeSelect = document.querySelector('#grade-level');
+if (gradeSelect) {
+  const packageLabel = document.querySelector('[data-package-label]');
+  const updatePricing = () => {
+    const category = gradeToCategory[gradeSelect.value];
+    const rates = gradePricing[category];
+    packageLabel.textContent = `${category === 'category1' ? 'Category 1' : 'Category 2'} packages selected`;
+    document.querySelector('[data-price="basic"]').innerHTML = `$${rates.basic} <small>an hour</small>`;
+    document.querySelector('[data-price="standard"]').innerHTML = `$${rates.standard} <small>an hour</small>`;
+    document.querySelector('[data-price="gold"]').innerHTML = `$${rates.gold} <small>an hour</small>`;
+    document.querySelector('[data-weekly="basic"]').textContent = `$${rates.basic} / week`;
+    document.querySelector('[data-weekly="standard"]').textContent = `$${rates.standard * 2} / week`;
+    document.querySelector('[data-weekly="gold"]').textContent = `Starting at $${rates.gold * 3} / week`;
+  };
+  gradeSelect.addEventListener('change', updatePricing);
+  updatePricing();
+}
+</script>
 </body>
 
 </html>
