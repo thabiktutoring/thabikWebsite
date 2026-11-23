@@ -1148,6 +1148,48 @@
         height: 2.35rem;
       }
     }
+
+    .grade-picker {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border: 1px solid rgba(201, 168, 76, .6);
+      border-radius: 14px;
+      background: linear-gradient(110deg, rgba(201, 168, 76, .12), rgba(20, 34, 58, .72));
+      padding: 16px 18px;
+    }
+    .grade-picker label { display: block; color: var(--ivory); font-weight: 600; }
+    .grade-picker small { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .grade-select-wrap { position: relative; flex: 0 1 320px; }
+    .grade-picker select {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      border: 1px solid var(--gold);
+      border-radius: 10px;
+      background: #17243a;
+      color: var(--ivory);
+      padding: 13px 44px 13px 16px;
+      font: inherit;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+    }
+    .grade-picker select:hover, .grade-picker select:focus-visible {
+      border-color: #e4c76d;
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, .18);
+      outline: none;
+    }
+    .grade-picker option { background: #17243a; color: var(--ivory); }
+    .grade-select-wrap::after {
+      content: '⌄'; position: absolute; right: 16px; top: 50%; transform: translateY(-55%);
+      color: var(--gold); font-size: 21px; pointer-events: none;
+    }
+    @media (max-width: 640px) {
+      .grade-picker { align-items: stretch; flex-direction: column; }
+      .grade-select-wrap { flex: auto; }
+    }
   </style>
 </head>
 
