@@ -987,6 +987,12 @@
       display: block;
     }
 
+    .carousel-media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
     .carousel-media img,
     .carousel-media video {
       object-fit: contain;
@@ -999,13 +1005,14 @@
 
     .carousel-caption {
       position: absolute;
-      left: 1.25rem;
-      right: 1.25rem;
-      bottom: 1.15rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
       color: #fff;
-      padding: 3.5rem 1rem .75rem;
-      background: linear-gradient(transparent, rgba(12, 18, 32, .92));
+      padding: 3.5rem 2.25rem 1.35rem;
+      background: linear-gradient(transparent, rgba(12, 18, 32, .94));
       pointer-events: none;
+      z-index: 2;
     }
 
     .carousel-caption span {
@@ -1109,9 +1116,7 @@
       }
 
       .carousel-caption {
-        left: .75rem;
-        right: .75rem;
-        bottom: .75rem;
+        padding: 3.5rem 1rem 1rem;
       }
 
       .carousel-control {
@@ -1302,8 +1307,8 @@
       // To add media: copy the file into dist/media, then add one object here.
       { src: './media/hniang.jpeg', type: 'image', title: 'Support that feels personal', caption: 'Focused support, shared with care.' },
       { src: './media/crossy-1.jpeg', type: 'image', title: 'A team behind every student', caption: 'Learning is better when it is shared.' },
-      { src: './media/blessing-video.mp4', type: 'video', title: 'A tutoring moment', caption: 'A glimpse into a Thabik tutoring moment.' },
       { src: './media/blessing-2.jpeg', type: 'image', title: 'Progress worth celebrating', caption: 'Showing up, trying again, and moving forward.' },
+      { src: './media/blessing-video.mp4', type: 'video', title: 'A tutoring moment', caption: 'A glimpse into a Thabik tutoring moment.' },      
       { src: './media/miriam.jpeg', type: 'image', title: 'Community learning', caption: 'Students and tutors growing together.' },
       { src: './media/ruth-and-eddie.jpeg', type: 'image', title: 'Learning beyond the desk', caption: 'Connection is part of the Thabik experience.' },
       { src: './media/titus.jpeg', type: 'image', title: 'Curiosity at work', caption: 'Making space for questions and confidence.' },
