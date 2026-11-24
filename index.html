@@ -251,7 +251,16 @@
     }
 
     .group-photo {
-      height: 235px
+      height: 235px;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      background: none
+    }
+
+    .group-photo:before,
+    .group-photo:after {
+      display: none
     }
 
     .team-logo {
@@ -259,6 +268,13 @@
       width: min(70%, 240px);
       max-height: 75%;
       object-fit: contain
+    }
+
+    .team-illustration {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover
     }
 
     .placeholder-label {
@@ -1214,7 +1230,7 @@
   <header>
     <div class="wrap header-row">
       <a class="brand" href="#" aria-label="Thabik Tutoring home">
-        <img class="logo-slot" src="./media/thabikLogo.png" alt="Thabik Tutoring logo">
+        <img class="logo-slot" src="./media/thabikLogo.jpeg" alt="Thabik Tutoring logo">
         <span class="wordmark">Thabik <span>Tutoring</span>
         </span>
       </a>
@@ -1245,9 +1261,9 @@
         </div>
         <figure>
           <div class="photo group-photo">
-            <img class="team-logo" src="./thabikCartoon.png" alt="Thabik Tutoring logo">
+            <img class="team-illustration" src="./thabik-burmese-tutor-illustration-clean.png" alt="Illustration of a Burmese-looking female tutor helping two students study together">
           </div>
-          <figcaption>Thabik Tutoring</figcaption>
+          <figcaption>Illustration of a tutoring moment.</figcaption>
         </figure>
       </div>
       <div class="intro-bottom">
@@ -1377,7 +1393,7 @@
   <footer>
     <div class="wrap">
       <a class="brand" href="#" aria-label="Thabik Tutoring home">
-        <img class="logo-slot" src="./media/thabikLogo.png" alt="Thabik Tutoring logo">
+        <img class="logo-slot" src="./media/thabikLogo.jpeg" alt="Thabik Tutoring logo">
         <span class="wordmark">Thabik <span>Tutoring</span>
         </span>
       </a>
