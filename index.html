@@ -103,6 +103,13 @@
       letter-spacing: .06em
     }
 
+    img.logo-slot {
+      display: block;
+      object-fit: contain;
+      border: 0;
+      padding: 2px;
+    }
+
     .wordmark {
       font: 500 25px/1.1 'Cormorant Garamond', Georgia, serif
     }
@@ -245,6 +252,13 @@
 
     .group-photo {
       height: 235px
+    }
+
+    .team-logo {
+      display: block;
+      width: min(70%, 240px);
+      max-height: 75%;
+      object-fit: contain
     }
 
     .placeholder-label {
@@ -1200,7 +1214,7 @@
   <header>
     <div class="wrap header-row">
       <a class="brand" href="#" aria-label="Thabik Tutoring home">
-        <span class="logo-slot" aria-label="Logo placeholder">LOGO</span>
+        <img class="logo-slot" src="./media/thabikLogo.jpeg" alt="Thabik Tutoring logo">
         <span class="wordmark">Thabik <span>Tutoring</span>
         </span>
       </a>
@@ -1230,15 +1244,10 @@
           </div>
         </div>
         <figure>
-          <div class="photo group-photo" role="img" aria-label="Placeholder for a future Thabik team photograph">
-            <div>
-              <span class="photo-mark" aria-hidden="true">
-              </span>
-              <span class="placeholder-label">Your team photo here</span>
-              <span class="placeholder-note">A real moment with the Thabik team</span>
-            </div>
+          <div class="photo group-photo">
+            <img class="team-logo" src="./media/thabikLogo.jpeg" alt="Thabik Tutoring logo">
           </div>
-          <figcaption>Reserved for your own photography.</figcaption>
+          <figcaption>Thabik Tutoring</figcaption>
         </figure>
       </div>
       <div class="intro-bottom">
@@ -1368,7 +1377,7 @@
   <footer>
     <div class="wrap">
       <a class="brand" href="#" aria-label="Thabik Tutoring home">
-        <span class="logo-slot">LOGO</span>
+        <img class="logo-slot" src="./media/thabikLogo.jpeg" alt="Thabik Tutoring logo">
         <span class="wordmark">Thabik <span>Tutoring</span>
         </span>
       </a>
