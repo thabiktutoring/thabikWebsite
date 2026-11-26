@@ -928,6 +928,11 @@
       color: #26344c
     }
 
+    .price-card.featured .role {
+      color: #26344c;
+      font-weight: 700
+    }
+
     @media(max-width:800px) {
       .pricing-grid {
         grid-template-columns: repeat(2, 1fr)
@@ -1221,6 +1226,28 @@
       .grade-picker { align-items: stretch; flex-direction: column; }
       .grade-select-wrap { flex: auto; }
     }
+    .online-packages { margin-top: 28px; }
+    .package-group-heading { margin: 0 0 16px; }
+    .package-group-heading h3 { margin: 0; font: 400 30px/1.15 'Cormorant Garamond', Georgia, serif; }
+    .online-packages-heading { margin-bottom: 16px; }
+    .online-packages-heading .eyebrow { margin-bottom: 6px; }
+    .online-packages-heading h3 { margin: 0; font: 400 30px/1.15 'Cormorant Garamond', Georgia, serif; }
+    .online-pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .online-pricing-grid .price-card.online { grid-column: auto; min-height: 215px; }
+    .online-pricing-grid .price-card.online h3 { margin-bottom: revert; }
+    .online-pricing-grid .price-card.online strong { margin-top: auto; }
+    .online-pricing-grid .price-card.online.featured {
+      border-color: var(--gold);
+      background: linear-gradient(145deg, #eae6dc, #c9a84c);
+      color: var(--navy);
+    }
+    .online-pricing-grid .price-card.online.featured .role,
+    .online-pricing-grid .price-card.online.featured h3,
+    .online-pricing-grid .price-card.online.featured strong,
+    .online-pricing-grid .price-card.online.featured p { color: #26344c; }
+    .online-pricing-grid .price-card.online.featured .role { font-weight: 700; }
+    @media(max-width:800px) { .online-pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width:580px) { .online-pricing-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }
   </style>
 </head>
 
@@ -1310,12 +1337,8 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Simple, transparent pricing</p>
-            <h2 id="pricing-title">Choose the pace <em>that fits.</em>
-            </h2>
+            <h2 id="pricing-title">Packages</h2>
           </div>
-          <p class="section-aside">Online tutoring is available at a flat $28 per hour. In-person weekly packages are
-            priced by weekly commitment.</p>
         </div>
         <div class="grade-picker">
           <div><label for="grade-level">What grade is your student in?</label><small data-package-label>Category 1 packages selected</small></div>
@@ -1326,6 +1349,7 @@
             <option value="high">High School</option>
           </select></div>
         </div>
+        <div class="package-group-heading"><h3>In-Person Packages</h3></div>
         <div class="pricing-grid">
           <article class="price-card">
             <div class="role">Basic</div>
@@ -1348,13 +1372,31 @@
             </strong>
             <p data-weekly="gold">Starting at $90 / week</p>
           </article>
-          <article class="price-card online">
-            <div class="role">Online</div>
-            <h3>Flexible weekly hours</h3>
-            <strong>$28 <small>an hour</small>
-            </strong>
-            <p>Flat online rate</p>
-          </article>
+        </div>
+        <div class="online-packages">
+          <div class="online-packages-heading">
+            <h3>Online packages</h3>
+          </div>
+          <div class="online-pricing-grid">
+            <article class="price-card online">
+              <div class="role">Online Basic</div>
+              <h3>1 hour / week</h3>
+              <strong data-online-price="basic">$33 <small>an hour</small></strong>
+              <p data-online-weekly="basic">$33 / week</p>
+            </article>
+            <article class="price-card online">
+              <div class="role">Online Standard</div>
+              <h3>2 hours / week</h3>
+              <strong data-online-price="standard">$30 <small>an hour</small></strong>
+              <p data-online-weekly="standard">$60 / week</p>
+            </article>
+            <article class="price-card online featured">
+              <div class="role">Online Gold</div>
+              <h3>3+ hours / week</h3>
+              <strong data-online-price="gold">$28 <small>an hour</small></strong>
+              <p data-online-weekly="gold">Starting at $84 / week</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -1455,8 +1497,14 @@
   </script>
 <script>
 const gradePricing = {
-  category1: { basic: 35, standard: 32, gold: 30 },
-  category2: { basic: 40, standard: 37, gold: 35 }
+  category1: {
+    inPerson: { basic: 35, standard: 32, gold: 30 },
+    online: { basic: 33, standard: 30, gold: 28 }
+  },
+  category2: {
+    inPerson: { basic: 40, standard: 37, gold: 35 },
+    online: { basic: 35, standard: 32, gold: 30 }
+  }
 };
 const gradeToCategory = {
   kindergarten: 'category2',
@@ -1469,7 +1517,8 @@ if (gradeSelect) {
   const packageLabel = document.querySelector('[data-package-label]');
   const updatePricing = () => {
     const category = gradeToCategory[gradeSelect.value];
-    const rates = gradePricing[category];
+    const rates = gradePricing[category].inPerson;
+    const onlineRates = gradePricing[category].online;
     packageLabel.textContent = `${category === 'category1' ? 'Category 1' : 'Category 2'} packages selected`;
     document.querySelector('[data-price="basic"]').innerHTML = `$${rates.basic} <small>an hour</small>`;
     document.querySelector('[data-price="standard"]').innerHTML = `$${rates.standard} <small>an hour</small>`;
@@ -1477,6 +1526,12 @@ if (gradeSelect) {
     document.querySelector('[data-weekly="basic"]').textContent = `$${rates.basic} / week`;
     document.querySelector('[data-weekly="standard"]').textContent = `$${rates.standard * 2} / week`;
     document.querySelector('[data-weekly="gold"]').textContent = `Starting at $${rates.gold * 3} / week`;
+    document.querySelector('[data-online-price="basic"]').innerHTML = `$${onlineRates.basic} <small>an hour</small>`;
+    document.querySelector('[data-online-price="standard"]').innerHTML = `$${onlineRates.standard} <small>an hour</small>`;
+    document.querySelector('[data-online-price="gold"]').innerHTML = `$${onlineRates.gold} <small>an hour</small>`;
+    document.querySelector('[data-online-weekly="basic"]').textContent = `$${onlineRates.basic} / week`;
+    document.querySelector('[data-online-weekly="standard"]').textContent = `$${onlineRates.standard * 2} / week`;
+    document.querySelector('[data-online-weekly="gold"]').textContent = `Starting at $${onlineRates.gold * 3} / week`;
   };
   gradeSelect.addEventListener('change', updatePricing);
   updatePricing();
